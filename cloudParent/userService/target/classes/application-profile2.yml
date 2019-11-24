@@ -1,0 +1,25 @@
+server:
+  port: 9003
+spring:
+  application: 
+    name: userService
+  profiles: profile2
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8&useSSL=false&autoReconnect=true
+    username: root
+    password: 123
+    
+mybatis: 
+  type-aliases-package: com.eway.user.pojo
+eureka: 
+  client: 
+    service-url: 
+      defaultZone: http://localhost:9001/eureka,http://localhost:9002/eureka
+  instance: 
+    prefer-ip-address: true
+    ip-address: 127.0.0.1
+    # 心跳默认30秒一次
+    lease-renewal-interval-in-seconds: 30
+    # 每隔30秒发一次心跳，如果隔了90秒还没发，说明该服务已经挂了
+    lease-expiration-duation-in-seconds: 90

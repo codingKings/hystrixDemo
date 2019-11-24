@@ -1,0 +1,18 @@
+spring: 
+  application: 
+    name: eureka-server
+  profiles: eureka-server3
+server: 
+  port: 9001
+eureka: 
+  instance: 
+    hostname: eureka-server3
+  client: 
+    serviceUrl: 
+      defaultZone: http://localhost:9002/eureka/
+    # 启动时不注册自己
+    register-with-eureka: false
+  server: 
+    # 失效剔除的时间默认是60秒
+    eviction-interval-timer-in-ms: 30000
+    

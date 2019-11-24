@@ -1,0 +1,36 @@
+server: 
+  port: 8096
+spring: 
+  application: 
+    name: consumerService
+eureka: 
+  client: 
+    service-url: 
+      defaultZone: http://localhost:9001/eureka
+    # 拉取服务列表  默认是需要拉取的，true
+    fetch-registry: true
+    # 拉取服务列表周期是3秒
+    registry-fetch-interval-seconds: 3
+  instance: 
+    prefer-ip-address: true
+    ip-address: 127.0.0.1
+# 更改负载均衡器的规则 ，默认是轮询规则RoundRobinRule,随机规则是RandomRule,hash规则：RetryRule
+userService: 
+  ribbon: 
+    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RoundRobinRule
+# Hystrix配置调用服务超过超时的时间，在此时间内还没调用成功则会服务降级处理 和方法里的注解@HystrixProperty是等同的，  统一处理用的是default
+hystrix: 
+  command: 
+    default: 
+      execution: 
+        isolation: 
+          thread: 
+            timeoutInMilliseconds: 4000
+# hystrix如果配置default统一处理就以default为准，此时针对某个服务的超时的配置就失效了，这是针对某个服务的时间的配置 可以直接写服务的名称，也可以直接写defaultFallback方法的名称
+    userService: 
+      execution: 
+        isolation: 
+          thread: 
+            timeoutInMilliseconds: 4000
+            
+    
